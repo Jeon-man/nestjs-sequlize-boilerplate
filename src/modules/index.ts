@@ -4,6 +4,7 @@ export * from './config';
 export * from './db';
 export * from './logger';
 export * from './modules';
+export * from './user';
 // @endindex
 
 import * as Modules from './modules';

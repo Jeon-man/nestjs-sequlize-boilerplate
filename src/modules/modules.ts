@@ -3,3 +3,4 @@ export { default as appModule } from './app';
 export { default as configModule } from './config';
 export { default as dbModule } from './db';
 export { default as loggerModule } from './logger';
+export { default as userModule } from './user';

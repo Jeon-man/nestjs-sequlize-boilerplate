@@ -1,5 +1,5 @@
 import { AppModule } from '@module/app';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
@@ -12,11 +12,13 @@ async function bootstrap() {
   const NODE_ENV = config.get('NODE_ENV');
 
   app.setGlobalPrefix('api');
-  // app.enableVersioning({
-  //   type: VersioningType.URI,
-  //   defaultVersion: '1',
-  //   prefix: 'v',
-  // });
+
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: '1',
+    prefix: 'v',
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,

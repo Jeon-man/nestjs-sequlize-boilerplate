@@ -1,4 +1,5 @@
-import { IsEnum, IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
+import { createValidator } from '@util/validator';
+import { IsEnum, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 enum Environment {
   Development = 'development',
@@ -35,4 +36,32 @@ export class EnvironmentVariables {
   @IsOptional()
   @IsIn(['error', 'warn', 'info', 'verbose', 'debug'])
   LOG_LEVEL: 'error' | 'warn' | 'info' | 'verbose' | 'debug' = 'debug';
+
+  @IsOptional()
+  @IsEnum(Dialect)
+  DB_DIALECT: Dialect = Dialect.MySQL;
+
+  @IsString()
+  DB_HOST: string;
+
+  @IsOptional()
+  @IsNumber({ allowInfinity: false, allowNaN: false })
+  DB_PORT: number = 3306 as const;
+
+  @IsString()
+  @IsNotEmpty()
+  DB_USERNAME: string;
+
+  @IsString()
+  @IsNotEmpty()
+  DB_PASSWORD: string;
+
+  @IsString()
+  @IsNotEmpty()
+  DB_DATABASE: string;
 }
+
+export const validateConfig = createValidator(EnvironmentVariables, {
+  transformToInstanceOptions: { exposeDefaultValues: true },
+  sync: true,
+});

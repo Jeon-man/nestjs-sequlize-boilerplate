@@ -34,6 +34,22 @@ async function bootstrap() {
     .setTitle(Case.title(config.get('APP_NAME')))
     .setDescription(`The ${config.get('APP_NAME')} API description`)
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+      },
+      'accessJWT',
+    )
+    .addBearerAuth(
+      {
+        description: `토큰을 refresh할 때 같이 갱신해주어야 함`,
+        type: 'http',
+        in: 'header',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'refreshJWT',
+    )
     .addTag('user', 'user 관련 api')
     .addTag('auth', 'auth 관련 api')
     .build();
@@ -42,18 +58,18 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
-      // authAction: {
-      //   accessJWT: {
-      //     name: 'accessJWT',
-      //     schema: {
-      //       type: 'http',
-      //       in: 'header',
-      //       scheme: 'bearer',
-      //       bearerFormat: 'JWT',
-      //     },
-      //     value: defaultAdminToken,
-      //   },
-      // },
+      authAction: {
+        accessJWT: {
+          name: 'accessJWT',
+          schema: {
+            type: 'http',
+            in: 'header',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
+          value: '213123',
+        },
+      },
       docExpansion: 'none', // "list", "full", "none"
       syntaxHighlight: {
         activate: true,

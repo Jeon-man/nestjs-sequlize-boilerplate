@@ -59,6 +59,12 @@ export class EnvironmentVariables {
   @IsString()
   @IsNotEmpty()
   DB_DATABASE: string;
+
+  @IsString()
+  ACCESS_TOKEN_SECRET: string;
+
+  @IsString()
+  REFRESH_TOKEN_SECRET: string;
 }
 
 export const validateConfig = createValidator(EnvironmentVariables, {

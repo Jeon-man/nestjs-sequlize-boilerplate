@@ -8,8 +8,6 @@ import { Column, Model, Table } from 'sequelize-typescript';
   paranoid: true,
 })
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  readonly id: number;
-
   @Column
   name: string;
 }

@@ -35,6 +35,7 @@ async function bootstrap() {
     .setDescription(`The ${config.get('APP_NAME')} API description`)
     .setVersion('1.0')
     .addTag('user', 'user 관련 api')
+    .addTag('auth', 'auth 관련 api')
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
 

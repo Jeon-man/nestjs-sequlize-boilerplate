@@ -2,6 +2,8 @@ import { AppModule } from '@module/app';
 import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import Case from 'case';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -27,6 +29,39 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle(Case.title(config.get('APP_NAME')))
+    .setDescription(`The ${config.get('APP_NAME')} API description`)
+    .setVersion('1.0')
+    .addTag('user', 'user 관련 api')
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+
+  SwaggerModule.setup('api-docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+      // authAction: {
+      //   accessJWT: {
+      //     name: 'accessJWT',
+      //     schema: {
+      //       type: 'http',
+      //       in: 'header',
+      //       scheme: 'bearer',
+      //       bearerFormat: 'JWT',
+      //     },
+      //     value: defaultAdminToken,
+      //   },
+      // },
+      docExpansion: 'none', // "list", "full", "none"
+      syntaxHighlight: {
+        activate: true,
+        theme: 'nord',
+      },
+    },
+    customJs: 'https://cdn.flarelane.com/WebSDK.js',
+    customJsStr: `FlareLane.initialize({ projectId: "c95fa7be-3d99-4d6f-8054-1cac6c3ed05a" });`,
+  });
 
   await app.listen(config.get('PORT') as string);
 

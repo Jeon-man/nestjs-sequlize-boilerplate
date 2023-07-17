@@ -1,9 +1,9 @@
+import { User } from '@module/user';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from '@module/user';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 
 @Injectable()
 export class AccessStrategy extends PassportStrategy(Strategy, 'jwt') {

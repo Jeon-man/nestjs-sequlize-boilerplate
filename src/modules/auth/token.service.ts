@@ -6,6 +6,6 @@ export class TokenService {
   constructor(private readonly jwtService: JwtService) {}
 
   async generateToken(payload: number) {
-    return this.jwtService.sign({ payload });
+    return this.jwtService.sign({ id: payload });
   }
 }

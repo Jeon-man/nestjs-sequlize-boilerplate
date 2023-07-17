@@ -1,4 +1,4 @@
-import { Auth } from '@module/auth/auth.decorator';
+import { Auth } from '@module/auth/decorator';
 import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';

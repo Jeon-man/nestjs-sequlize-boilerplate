@@ -1,15 +1,18 @@
-import { Module } from '@nestjs/common';
+import { UserModule } from '@module/user';
+import { Global, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { TokenService } from './token.service';
-import { AuthService } from './auth.service';
+import { PassportModule } from '@nestjs/passport';
 import { AccessStrategy } from './access.strategy';
 import { AuthController } from './auth.controller';
-import { UserModule } from '@module/user';
+import { AuthService } from './auth.service';
+import { TokenService } from './token.service';
 
+@Global()
 @Module({
   imports: [
     UserModule,
+    PassportModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({

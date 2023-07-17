@@ -1,8 +1,8 @@
-import { Controller, Get, HttpStatus, Type } from '@nestjs/common';
+import { Auth } from '@module/auth/auth.decorator';
+import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from './models';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { FindAndCountResponseType } from '@util/swagger';
+import { User } from './models';
 
 @ApiTags('user')
 @Controller('user')
@@ -19,6 +19,7 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.OK,
   })
+  @Auth()
   @Get()
   async getUserList() {
     return this.userCRUD.findAndCountAll();

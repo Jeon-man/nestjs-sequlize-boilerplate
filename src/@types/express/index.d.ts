@@ -1,5 +1,7 @@
-import { User } from '@module/user';
+import { User as UserModel } from '@module/user';
 
 declare global {
-  export namespace Express {}
+  export namespace Express {
+    interface User extends UserModel {}
+  }
 }

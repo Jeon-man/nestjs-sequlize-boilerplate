@@ -1,14 +1,19 @@
+import { ParamDecoratorReturnType } from '@module/common';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Request } from 'express';
+import { Attributes } from 'sequelize';
+import { User as UserModel } from '../models';
 
-// TODO: user data key로 선택 가능하게 하기
-export function getUser(data: unknown, ctx: ExecutionContext) {
+export function getUser<Key extends keyof Attributes<UserModel> | undefined = undefined>(
+  data: Key,
+  ctx: ExecutionContext,
+): ParamDecoratorReturnType<UserModel, Key> | undefined {
   const req = ctx.switchToHttp().getRequest<Request>();
   const user = req.user;
 
   if (!user) return undefined;
 
-  return user;
+  return (data ? user[data] : user) as ParamDecoratorReturnType<UserModel, Key>;
 }
 
 export const User = createParamDecorator(getUser);

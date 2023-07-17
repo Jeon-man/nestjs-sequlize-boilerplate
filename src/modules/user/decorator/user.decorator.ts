@@ -1,5 +1,5 @@
-import { ParamDecoratorReturnType } from '@module/common';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { ParamDecoratorReturnType } from '@util/nest';
 import { Request } from 'express';
 import { Attributes } from 'sequelize';
 import { User as UserModel } from '../models';

@@ -404,3 +404,5 @@ export type TrimStart<
 > = T extends `${S}${infer U extends string}` ? TrimStart<U, S> : T;
 
 export type ReplaceUnionValue<T, V, Replaced> = [T] extends [V] ? Replaced : T;
+
+export type KeyOf<T> = keyof T extends never ? string : keyof T;

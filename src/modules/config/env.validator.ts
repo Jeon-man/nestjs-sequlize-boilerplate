@@ -1,3 +1,6 @@
+import { Injectable } from '@nestjs/common';
+import { ConfigService as OriginalConfigService } from '@nestjs/config';
+import { KeyOf } from '@util/types';
 import { createValidator } from '@util/validator';
 import { IsEnum, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
@@ -71,3 +74,15 @@ export const validateConfig = createValidator(EnvironmentVariables, {
   transformToInstanceOptions: { exposeDefaultValues: true },
   sync: true,
 });
+
+@Injectable()
+export class ConfigService extends OriginalConfigService<EnvironmentVariables, true> {
+  public getEnvVariable(variables: KeyOf<EnvironmentVariables>[]) {
+    const result = [];
+    for (const _variable of variables) {
+      result.push(this.get(_variable));
+    }
+
+    return result;
+  }
+}

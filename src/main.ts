@@ -1,6 +1,7 @@
 import { AppModule } from '@module/app';
+import { ConfigService } from '@module/config';
 import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import Case from 'case';

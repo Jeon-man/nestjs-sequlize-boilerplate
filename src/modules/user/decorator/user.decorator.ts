@@ -16,4 +16,4 @@ export function getUser<Key extends keyof Attributes<UserModel> | undefined = un
   return (data ? user[data] : user) as ParamDecoratorReturnType<UserModel, Key>;
 }
 
-export const User = createParamDecorator(getUser);
+export const UserInfo = createParamDecorator(getUser);

@@ -6,6 +6,8 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import Case from 'case';
 
+declare const module: any;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true,
@@ -82,6 +84,11 @@ async function bootstrap() {
   });
 
   await app.listen(config.get('PORT') as string);
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 
   // pm2 wait_ready
   if (process.send) {
